@@ -79,11 +79,9 @@ class VirtualCardSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'user_username',
-            'card_number',
             'masked_card_number',
             'card_holder_name',
             'expiry_date',
-            'cvv',
             'balance',
             'status',
             'is_expired',
@@ -91,10 +89,6 @@ class VirtualCardSerializer(serializers.ModelSerializer):
             'updated_at'
         )
         read_only_fields = ('id', 'card_number', 'cvv', 'balance', 'created_at', 'updated_at', 'user')
-        extra_kwargs = {
-            'card_number': {'write_only': True},
-            'cvv': {'write_only': True},
-        }
 
     def validate_card_holder_name(self, value):
         """Validate card holder name"""
