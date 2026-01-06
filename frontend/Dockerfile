@@ -1,7 +1,7 @@
 # Multi-stage build for React frontend
 
 # Build stage
-FROM node:18-alpine as build
+FROM public.ecr.aws/docker/library/node:18-alpine as build
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --force
 
 # Copy source code
 COPY . .
@@ -18,7 +18,7 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM nginx:alpine
+FROM public.ecr.aws/docker/library/nginx:alpine
 
 # Copy build files to nginx
 COPY --from=build /app/build /usr/share/nginx/html
